@@ -10,10 +10,10 @@ app.use(express.urlencoded({ extended: true }));
 const axiosIPv4 = axios.create({
   timeout: 15000,
 
-  // httpsAgent: new https.Agent({
-  //   family: 4,
-  //   keepAlive: true
-  // })
+  httpsAgent: new https.Agent({
+    // family: 6,
+    keepAlive: true
+  })
 });
 
 app.use(async (req, res) => {
