@@ -11,7 +11,7 @@ const axiosIPv4 = axios.create({
   timeout: 15000,
 
   httpsAgent: new https.Agent({
-    // family: 6,
+    family: 6,
     keepAlive: true
   })
 });
