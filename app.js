@@ -13,15 +13,9 @@ const axiosIPv4 = axios.create({
   // httpsAgent: new https.Agent({
   //   family: 4,
   //   keepAlive: true
-  // }),
-
-  // headers: {
-  //   "User-Agent":
-  //     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36"
-  // }
+  // })
 });
 
-// proxy ALL routes
 app.use(async (req, res) => {
   try {
     const targetUrl = `https://mydio.vn${req.originalUrl}`;
@@ -44,6 +38,20 @@ app.use(async (req, res) => {
       validateStatus: () => true
     });
 
+    // lấy IP đang kết nối thật
+    const remoteIp =
+      response.request?.socket?.remoteAddress || "unknown";
+
+    const ipVersion =
+      response.request?.socket?.remoteFamily || "unknown";
+
+    console.log("CONNECTED IP:", remoteIp);
+    console.log("IP VERSION:", ipVersion);
+
+    // add header debug
+    res.setHeader("x-proxy-ip", remoteIp);
+    res.setHeader("x-ip-version", ipVersion);
+
     res.status(response.status);
 
     Object.entries(response.headers).forEach(([key, value]) => {
@@ -53,6 +61,7 @@ app.use(async (req, res) => {
     });
 
     response.data.pipe(res);
+
   } catch (err) {
     console.error("PROXY ERROR:", err.code || err.message);
 
@@ -63,7 +72,9 @@ app.use(async (req, res) => {
     });
   }
 });
+
 const port = process.env.PORT || 3000;
+
 app.listen(port, () => {
   console.log("IPv4 proxy running at http://localhost:3000");
 });
