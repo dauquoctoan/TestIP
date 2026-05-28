@@ -19,7 +19,7 @@ const axiosIPv4 = axios.create({
 app.use(async (req, res) => {
   try {
     if(req.originalUrl.includes('log-listening')){
-      console.log('requests', req);
+      console.log('vlxxx', req);
     }
 
     const targetUrl = `https://mydio.vn${req.originalUrl}`;
