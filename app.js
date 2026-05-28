@@ -18,6 +18,8 @@ const axiosIPv4 = axios.create({
 
 app.use(async (req, res) => {
   try {
+    console.log('req', req);
+
     const targetUrl = `https://mydio.vn${req.originalUrl}`;
 
     console.log("PROXY:", targetUrl);
