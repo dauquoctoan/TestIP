@@ -18,7 +18,7 @@ const axiosIPv4 = axios.create({
 
 app.use(async (req, res) => {
   try {
-    const targetUrl = `https://mydio.vn${req.originalUrl}`;
+    const targetUrl = `https://tammibooks.vn${req.originalUrl}`;
 
     console.log("PROXY:", targetUrl);
 
@@ -28,7 +28,7 @@ app.use(async (req, res) => {
 
       headers: {
         ...req.headers,
-        host: "mydio.vn"
+        host: "tammibooks.vn"
       },
 
       data: req.body,
